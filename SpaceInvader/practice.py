@@ -62,7 +62,7 @@ while running:
 
     # Set Background Image
     screen.blit(background, (0,0))
-
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -74,7 +74,9 @@ while running:
             if event.key == pygame.K_RIGHT:
                 playerX_change = 1
             if event.key == pygame.K_SPACE:
-                fire_bullet(playerX, playerY)
+                # Store the x_position of spaceship
+                bulletX = playerX
+                fire_bullet(bulletX, playerY)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -100,8 +102,13 @@ while running:
         enemyY += enemyY_change
 
     # Bullet Movement
+    # Reset Bullet position for shooting
+    if bulletY <= 0:
+        bulletY = 480
+        bullet_state = 'ready'
+
     if bullet_state == 'fire':
-        fire_bullet(playerX, bulletY)
+        fire_bullet(bulletX, bulletY)
         bulletY -= bulletY_change
 
     player(playerX, playerY)
