@@ -25,14 +25,21 @@ playerY_change = 0
 score = 0
 
 # Enemy
-enemyImg = pygame.image.load('Images\lien.png')
-enemyX = random.randint(0,735)
-enemyY = random.randint(20,60)
-enemyX_change = 0.3
-enemyY_change = 30
+enemyImg = []
+enemyX = []
+enemyY = []
+enemyX_change = []
+enemyY_change = []
+num_of_enemies = 7
+
+for i in range(num_of_enemies):
+    enemyImg.append(pygame.image.load('Images\lien.png'))
+    enemyX.append(random.randint(0,735))
+    enemyY.append(random.randint(20,60))
+    enemyX_change.append(0.3)
+    enemyY_change.append(30)
 
 # Bullet
-
 # Ready - Bullet loaded
 # Fire - Bullet currently moving
 
@@ -46,8 +53,8 @@ bullet_state = 'ready'
 def player(x, y):
     screen.blit(playerImg, (x, y))
 
-def enemy(x, y):
-    screen.blit(enemyImg, (x, y))
+def enemy(x, y, i):
+    screen.blit(enemyImg[i], (x, y))
 
 def fire_bullet(x, y):
     global bullet_state
@@ -82,7 +89,7 @@ while running:
                 playerX_change = -1
             if event.key == pygame.K_RIGHT:
                 playerX_change = 1
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_UP:
                 # Store the x_position of spaceship
                 bulletX = playerX
                 fire_bullet(bulletX, playerY)
@@ -99,16 +106,29 @@ while running:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
-
-    # Keeping space invader within window boundaries
-    enemyX += enemyX_change
     
-    if enemyX <= 0:
-        enemyX_change = 0.3
-        enemyY += enemyY_change
-    elif enemyX >= 736:
-        enemyX_change = -0.3
-        enemyY += enemyY_change
+    # Enemy movement
+    # Keeping space invader within window boundaries
+    for i in range(num_of_enemies):
+        enemyX[i] += enemyX_change[i]
+        if enemyX[i] <= 0:
+            enemyX_change[i] = 0.3
+            enemyY[i] += enemyY_change[i]
+        elif enemyX[i] >= 736:
+            enemyX_change[i] = -0.3
+            enemyY[i] += enemyY_change[i]
+
+        # Collision
+        collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
+        if collision:
+            bullet_state = 'ready'
+            bulletY = 480
+            score += 1
+            print(score)
+            enemyX[i] = random.randint(0, 735)
+            enemyY[i] = random.randint(50, 150)
+
+        enemy(enemyX[i], enemyY[i], i)
 
     # Bullet Movement
     # Reset Bullet position for shooting
@@ -121,15 +141,6 @@ while running:
         bulletY -= bulletY_change
 
     player(playerX, playerY)
-    enemy(enemyX, enemyY)
+    
 
-    # Collision
-    collision = isCollision(enemyX, enemyY, bulletX, bulletY)
-    if collision:
-        bullet_state = 'ready'
-        bulletY = 480
-        score += 1
-        print(score)
-        enemyX = random.randint(0, 735)
-        enemyY = random.randint(50, 150)
     pygame.display.update()
