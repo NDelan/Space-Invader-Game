@@ -31,9 +31,16 @@ font = pygame.font.Font('freesansbold.ttf', 30)
 textX = 10
 textY = 10
 
+# Game Over text
+over_font = pygame.font.Font('freesansbold.ttf', 64)
+
 def display_score(x, y):
     score = font.render("Score :" + str(score_value), True, (255,255, 255))
     screen.blit(score, (x,y))
+
+def game_over_text():
+    gama_over = over_font.render("GAME OVER", True, (255,255, 255))
+    screen.blit(gama_over, (200,250))
 
 # Enemy
 enemyImg = []
@@ -121,6 +128,13 @@ while running:
     # Enemy movement
     # Keeping space invader within window boundaries
     for i in range(num_of_enemies):
+
+        if enemyY[i] > 450:
+            for j in range(num_of_enemies):
+                enemyY[j] = 1000
+            game_over_text()
+            break 
+
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
             enemyX_change[i] = 0.3
