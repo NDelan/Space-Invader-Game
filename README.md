@@ -7,11 +7,14 @@ A single player fixed shooter game. This was created using python 3.10.3 and pyg
 ### Required:
 
 1.Python 3.x
+
 2.pygame
 
 ### How to Run Code:
 
-Run 'spaceship.py' file from terminal using:![spacerun](https://user-images.githubusercontent.com/106436271/212494916-8c289ca7-4b15-4c2a-bec3-1130bd6b9a35.GIF)
+Run 'spaceship.py' file from terminal using:
+
+![spacerun](https://user-images.githubusercontent.com/106436271/212494916-8c289ca7-4b15-4c2a-bec3-1130bd6b9a35.GIF)
 
 ### Example Running Spaceship Game:
 
