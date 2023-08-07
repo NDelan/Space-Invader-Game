@@ -1,5 +1,4 @@
-## CS-269: Game-Design
-### Spaceship Game
+## Space Invader Game
 #### Description:
 
 A single player fixed shooter game. This was created using python 3.10.3 and pygame module.
