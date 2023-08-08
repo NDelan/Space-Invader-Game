@@ -13,11 +13,11 @@ background = pygame.image.load('Images/background.png')
 
 # Title and Icon
 pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load('Images\spaceship.png')
+icon = pygame.image.load('Images/spaceship.png')
 pygame.display.set_icon(icon)
 
 # Player
-playerImg = pygame.image.load('Images\cade.png')
+playerImg = pygame.image.load('Images/cade.png')
 playerX = 370
 playerY = 480
 playerX_change = 0
@@ -51,7 +51,7 @@ enemyY_change = []
 num_of_enemies = 7
 
 for i in range(num_of_enemies):
-    enemyImg.append(pygame.image.load('Images\lien.png'))
+    enemyImg.append(pygame.image.load('Images/lien.png'))
     enemyX.append(random.randint(0,735))
     enemyY.append(random.randint(20,60))
     enemyX_change.append(0.3)
@@ -61,7 +61,7 @@ for i in range(num_of_enemies):
 # Ready - Bullet loaded
 # Fire - Bullet currently moving
 
-bulletImg = pygame.image.load('Images\weapon.png')
+bulletImg = pygame.image.load('Images/weapon.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
